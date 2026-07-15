@@ -1,0 +1,83 @@
+.cookie-panel {
+	margin-bottom: 16px;
+	padding: 12px;
+	border: 1px solid #ddd;
+	border-radius: 6px;
+	background: #fff;
+}
+
+.cookie-actions {
+	display: flex;
+	gap: 8px;
+	flex-wrap: wrap;
+}
+
+.cookie-actions button {
+	padding: 6px 10px;
+	border: 1px solid #0b63ce;
+	background: #0b63ce;
+	color: #fff;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+.cookie-actions button:hover {
+	background: #094f9f;
+}
+
+.table-wrap {
+	overflow-x: auto;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	background: #fff;
+}
+
+th,
+td {
+	border: 1px solid #ddd;
+	padding: 10px;
+	text-align: left;
+}
+
+th {
+	background: #f3f6fb;
+	font-weight: 600;
+}
+
+tbody tr:nth-child(even) {
+	background: #fafafa;
+}
+
+.profile-section {
+	margin-top: 24px;
+	padding: 16px;
+	border: 1px solid #ddd;
+	border-radius: 6px;
+	background: #f9f9f9;
+}
+
+.profile-section h3 {
+	margin-top: 0;
+	margin-bottom: 12px;
+	color: #333;
+}
+
+.profile-card {
+	background: #fff;
+	padding: 12px;
+	border-radius: 4px;
+	border: 1px solid #e0e0e0;
+}
+
+.profile-card p {
+	margin: 8px 0;
+	color: #555;
+}
+
+.profile-card strong {
+	color: #333;
+	font-weight: 600;
+}

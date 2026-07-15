@@ -1,0 +1,86 @@
+<div class="rest-container">
+  <div class="timer-card">
+    <h2>Timer Alarm</h2>
+    <div class="timer-inputs">
+      <label>
+        Minutes
+        <input
+          type="number"
+          min="0"
+          [(ngModel)]="timerMinutes"
+          (ngModelChange)="onTimerInputChange()"
+        />
+      </label>
+      <label>
+        Seconds
+        <input
+          type="number"
+          min="0"
+          max="59"
+          [(ngModel)]="timerSeconds"
+          (ngModelChange)="onTimerInputChange()"
+        />
+      </label>
+    </div>
+    <div class="timer-display">{{ formattedTimer }}</div>
+    <div class="timer-actions">
+      <button class="btn-primary" (click)="startTimer()" [disabled]="timerRunning">Start</button>
+      <button class="btn-secondary" (click)="pauseTimer()" [disabled]="!timerRunning">Pause</button>
+      <button class="btn-secondary" (click)="resetTimer()">Reset</button>
+    </div>
+  </div>
+
+  <div class="rest-header">
+    <h1>REST API Data</h1>
+    <div class="button-group">
+      <button (click)="fetchPosts()" class="btn-primary">Load Posts</button>
+      <button (click)="fetchProducts()" class="btn-secondary">Load Products</button>
+    </div>
+  </div>
+
+  <div class="barcode-card">
+    <h2>Save Product Barcode</h2>
+    <div class="barcode-form">
+      <label>
+        Product ID
+        <input type="number" min="1" [(ngModel)]="barcodeProductId" />
+      </label>
+      <label>
+        Barcode
+        <input type="text" placeholder="8 to 14 digits" [(ngModel)]="barcodeValue" />
+      </label>
+      <button class="btn-primary" (click)="saveBarcode()" [disabled]="barcodeSaving">
+        {{ barcodeSaving ? 'Saving...' : 'Save Barcode' }}
+      </button>
+    </div>
+    <p *ngIf="barcodeSuccess" class="barcode-success">{{ barcodeSuccess }}</p>
+    <p *ngIf="barcodeError" class="barcode-error">{{ barcodeError }}</p>
+  </div>
+
+  <div *ngIf="loading" class="loading">
+    Loading data...
+  </div>
+
+  <div *ngIf="error" class="error">
+    {{ error }}
+  </div>
+
+  <div *ngIf="!loading && posts.length > 0" class="posts-list">
+    <div *ngFor="let post of posts" class="post-item">
+      <ng-container *ngIf="sourceType === 'posts'; else productTemplate">
+        <h3>{{ post.title }}</h3>
+        <p>{{ post.body }}</p>
+        <small>ID: {{ post.id }}</small>
+      </ng-container>
+      <ng-template #productTemplate>
+        <h3>{{ post.name }}</h3>
+        <p>{{ post.category }} | ${{ post.price }}</p>
+        <small>ID: {{ post.id }} | Barcode: {{ post.barcode || 'Not set' }}</small>
+      </ng-template>
+    </div>
+  </div>
+
+  <div *ngIf="!loading && posts.length === 0 && !error" class="no-data">
+    Click a button above to fetch data
+  </div>
+</div>

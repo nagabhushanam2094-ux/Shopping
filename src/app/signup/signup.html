@@ -1,0 +1,81 @@
+<div class="signup-container">
+  <div class="signup-card">
+    <h1>Shopping App</h1>
+    <h2>Create Account</h2>
+
+    <form (ngSubmit)="onSubmit()" class="signup-form">
+      <!-- Name Field -->
+      <div class="form-group">
+        <label for="name">Full Name:</label>
+        <input
+          id="name"
+          type="text"
+          [(ngModel)]="name"
+          name="name"
+          placeholder="Enter your full name"
+          [disabled]="isLoading"
+        />
+      </div>
+
+      <!-- Email Field -->
+      <div class="form-group">
+        <label for="email">Email Address:</label>
+        <input
+          id="email"
+          type="email"
+          [(ngModel)]="email"
+          name="email"
+          placeholder="Enter your email address"
+          [disabled]="isLoading"
+        />
+      </div>
+
+      <!-- Password Field -->
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input
+          id="password"
+          type="password"
+          [(ngModel)]="password"
+          name="password"
+          placeholder="Enter a strong password (min 6 chars)"
+          [disabled]="isLoading"
+        />
+      </div>
+
+      <!-- Confirm Password Field -->
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password:</label>
+        <input
+          id="confirmPassword"
+          type="password"
+          [(ngModel)]="confirmPassword"
+          name="confirmPassword"
+          placeholder="Confirm your password"
+          [disabled]="isLoading"
+        />
+      </div>
+
+      <button 
+        type="submit" 
+        [disabled]="!email.trim() || !password.trim() || !confirmPassword.trim() || !name.trim() || isLoading" 
+        class="signup-btn"
+      >
+        {{ isLoading ? 'Creating Account...' : 'Sign Up' }}
+      </button>
+    </form>
+
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+
+    <div *ngIf="successMessage" class="success-message">
+      ✓ {{ successMessage }}
+    </div>
+
+    <p class="login-link">
+      Already have an account? 
+      <button (click)="backToLogin()" class="link-btn">Log In</button>
+    </p>
+  </div>
+</div>

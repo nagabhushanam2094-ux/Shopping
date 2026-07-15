@@ -1,0 +1,62 @@
+<div class="database-page">
+  <section class="panel">
+    <h1>Database Viewer</h1>
+    <p class="subtitle">Read-only view of your SQLite tables.</p>
+
+    <div class="summary-toolbar">
+      <button type="button" (click)="loadSummary()" [disabled]="summaryLoading">
+        {{ summaryLoading ? 'Refreshing...' : 'Refresh Summary' }}
+      </button>
+    </div>
+
+    <p *ngIf="summaryError" class="error">{{ summaryError }}</p>
+
+    <div class="summary-grid" *ngIf="!summaryError && summary.length">
+      <div class="summary-card" *ngFor="let item of summary">
+        <p class="table-name">{{ item.table }}</p>
+        <p class="table-count">{{ item.count }}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Table Records</h2>
+
+    <div class="controls">
+      <label>
+        Table
+        <select [(ngModel)]="selectedTable" (change)="loadTableData()">
+          <option *ngFor="let table of tableOptions" [value]="table">{{ table }}</option>
+        </select>
+      </label>
+
+      <label>
+        Limit
+        <input type="number" min="1" max="200" [(ngModel)]="tableLimit" />
+      </label>
+
+      <button type="button" (click)="loadTableData()" [disabled]="rowsLoading">
+        {{ rowsLoading ? 'Loading...' : 'Load Records' }}
+      </button>
+    </div>
+
+    <p *ngIf="rowsError" class="error">{{ rowsError }}</p>
+
+    <div class="table-wrap" *ngIf="!rowsError && rows.length">
+      <table>
+        <thead>
+          <tr>
+            <th *ngFor="let col of columns">{{ col }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of rows">
+            <td *ngFor="let col of columns">{{ row[col] }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p *ngIf="!rowsError && !rowsLoading && !rows.length" class="empty">No rows found.</p>
+  </section>
+</div>

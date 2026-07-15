@@ -1,0 +1,257 @@
+.rest-container {
+  padding: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.timer-card {
+  background: #ffffff;
+  border: 1px solid #e6e6e6;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.timer-card h2 {
+  margin: 0 0 12px 0;
+  color: #333;
+}
+
+.timer-inputs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+.timer-inputs label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  color: #444;
+}
+
+.timer-inputs input {
+  width: 110px;
+  border: 1px solid #d6d6d6;
+  border-radius: 6px;
+  padding: 8px 10px;
+}
+
+.timer-display {
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #1f2f55;
+  margin-bottom: 12px;
+}
+
+.timer-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.rest-header {
+  margin-bottom: 30px;
+}
+
+.barcode-card {
+  background: #fff;
+  border: 1px solid #e6e6e6;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.barcode-card h2 {
+  margin: 0 0 12px 0;
+  color: #333;
+}
+
+.barcode-form {
+  display: flex;
+  gap: 10px;
+  align-items: end;
+  flex-wrap: wrap;
+}
+
+.barcode-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  color: #444;
+}
+
+.barcode-form input {
+  width: 180px;
+  border: 1px solid #d6d6d6;
+  border-radius: 6px;
+  padding: 8px 10px;
+}
+
+.barcode-success {
+  margin-top: 10px;
+  color: #107b3a;
+  font-weight: 500;
+}
+
+.barcode-error {
+  margin-top: 10px;
+  color: #c33;
+  font-weight: 500;
+}
+
+.rest-header h1 {
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.btn-primary,
+.btn-secondary {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.btn-secondary {
+  background: #f0f0f0;
+  color: #333;
+  border: 1px solid #ddd;
+}
+
+.btn-secondary:hover {
+  background: #e0e0e0;
+}
+
+.btn-primary:disabled,
+.btn-secondary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.loading {
+  text-align: center;
+  padding: 40px;
+  font-size: 18px;
+  color: #666;
+}
+
+.error {
+  background-color: #fee;
+  color: #c33;
+  padding: 15px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  border-left: 4px solid #c33;
+}
+
+.no-data {
+  text-align: center;
+  padding: 40px;
+  color: #999;
+  font-size: 16px;
+}
+
+.posts-list {
+  display: grid;
+  gap: 15px;
+}
+
+.post-item {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-left: 4px solid #667eea;
+  transition: all 0.3s ease;
+}
+
+.post-item:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.post-item h3 {
+  margin: 0 0 10px 0;
+  color: #333;
+  font-size: 18px;
+}
+
+.post-item p {
+  margin: 0 0 10px 0;
+  color: #666;
+  line-height: 1.5;
+}
+
+.post-item small {
+  color: #999;
+  font-size: 12px;
+}
+
+@media (max-width: 600px) {
+  .rest-container {
+    padding: 15px;
+  }
+
+  .timer-inputs {
+    flex-direction: column;
+  }
+
+  .timer-inputs input {
+    width: 100%;
+  }
+
+  .timer-display {
+    font-size: 34px;
+  }
+
+  .button-group {
+    flex-direction: column;
+  }
+
+  .barcode-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .barcode-form input {
+    width: 100%;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+  }
+
+  .post-item {
+    padding: 15px;
+  }
+
+  .post-item h3 {
+    font-size: 16px;
+  }
+}

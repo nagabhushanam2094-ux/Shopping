@@ -1,0 +1,44 @@
+<div class="orders-page">
+  <section class="orders-card">
+    <p class="eyebrow">Orders</p>
+    <h1>Track Delivery</h1>
+    <p class="subtitle">Enter your Transaction ID from email (or Order ID) to view live delivery updates.</p>
+    <p class="subtitle">Status auto-refreshes every 30 seconds while this page stays open.</p>
+
+    <div class="track-row">
+      <input
+        type="text"
+        [(ngModel)]="orderId"
+        placeholder="Enter Transaction ID from email (example: CARD1234567890)"
+        (keyup.enter)="trackOrder()"
+      />
+      <button type="button" (click)="trackOrder()" [disabled]="loading">
+        {{ loading ? 'Checking...' : 'Track Order' }}
+      </button>
+    </div>
+
+    <p *ngIf="successMessage" class="success-message">{{ successMessage }}</p>
+    <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+
+    <div *ngIf="trackingData" class="tracking-details">
+      <div class="detail-row"><span>Order ID</span><strong>{{ trackingData.orderId }}</strong></div>
+      <div class="detail-row"><span>Partner</span><strong>{{ trackingData.partner }}</strong></div>
+      <div class="detail-row"><span>Payment</span><strong>{{ trackingData.paymentMethod }}</strong></div>
+      <div class="detail-row"><span>Status</span><strong>{{ trackingData.status }}</strong></div>
+      <div class="detail-row"><span>Tracking ID</span><strong>{{ trackingData.trackingId }}</strong></div>
+      <div class="detail-row"><span>Updated</span><strong>{{ trackingData.updatedAt | date:'medium' }}</strong></div>
+
+      <a *ngIf="trackingData.trackingUrl" [href]="trackingData.trackingUrl" target="_blank" rel="noopener" class="partner-link">
+        Open Partner Tracking
+      </a>
+
+      <div class="timeline" *ngIf="trackingData.timeline.length">
+        <p class="timeline-title">Shipment Timeline</p>
+        <div *ngFor="let step of trackingData.timeline" class="timeline-step" [class.done]="step.completed">
+          <span>{{ step.status }}</span>
+          <small>{{ step.timestamp ? (step.timestamp | date:'medium') : 'Pending' }}</small>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

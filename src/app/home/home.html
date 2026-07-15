@@ -1,0 +1,29 @@
+<div class="home-container">
+  <h2>Shopping Items</h2>
+
+  <div *ngIf="isLoading" class="loading-state">
+    Loading products...
+  </div>
+
+  <div *ngIf="errorMessage" class="error-state">
+    {{ errorMessage }}
+  </div>
+
+  <div class="items-grid">
+    <div *ngFor="let item of items" class="item-card" [class.is-hidden]="isLoading || !!errorMessage">
+      <div class="item-image">
+        <img 
+          [src]="item.image" 
+          [alt]="item.name"
+          (error)="onImageError($event)"
+          class="product-image"
+        />
+      </div>
+      <h3>{{ item.name }}</h3>
+      <p class="category">{{ item.category }}</p>
+      <p class="barcode">Barcode: {{ item.barcode || 'Not assigned' }}</p>
+      <p class="price">${{ item.price.toFixed(2) }}</p>
+      <button class="add-to-cart" (click)="addToCart(item)">Add to Cart</button>
+    </div>
+  </div>
+</div>

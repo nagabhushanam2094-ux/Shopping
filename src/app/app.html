@@ -1,0 +1,7 @@
+<app-header *ngIf="isAuthenticated$ | async"></app-header>
+<div class="app-container">
+  <app-sidemenu *ngIf="isAuthenticated$ | async"></app-sidemenu>
+  <div class="content">
+    <router-outlet />
+  </div>
+</div>

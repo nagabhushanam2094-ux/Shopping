@@ -1,0 +1,42 @@
+ [
+  {
+    "email": "test@example.com",
+    "password": "password123",
+    "name": "Test User"
+  },
+  {
+    "email": "john@shopping-app.com",
+    "password": "password123",
+    "name": "John Developer"
+  },
+  {
+    "email": "user@example.com",
+    "password": "password123",
+    "name": "Demo User"
+  },
+  {
+    "email": "new.user@example.com",
+    "password": "secret123",
+    "name": "New User"
+  },
+  {
+    "email": "fresh.user@example.com",
+    "password": "secret123",
+    "name": "Fresh User"
+  },
+  {
+    "email": "bandarunagabhushanam5@gmail.com",
+    "password": "Welcome@12345",
+    "name": "bhushanam"
+  },
+  {
+    "email": "sqlite.user@example.com",
+    "password": "secret123",
+    "name": "SQLite User"
+  },
+  {
+    "email": "db.user@example.com",
+    "password": "secret123",
+    "name": "DB User"
+  }
+]

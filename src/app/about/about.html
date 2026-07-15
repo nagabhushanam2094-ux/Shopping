@@ -1,0 +1,66 @@
+<h2>Users From API</h2>
+
+<section class="cookie-panel">
+    <h3>Cookie Demo</h3>
+    <p><strong>userPref:</strong> {{ cookieValue }}</p>
+    <div class="cookie-actions">
+        <button type="button" (click)="setCookie()">Set Cookie</button>
+        <button type="button" (click)="readCookie()">Read Cookie</button>
+        <button type="button" (click)="deleteCookie()">Delete Cookie</button>
+    </div>
+</section>
+
+<section class="cookie-panel">
+    <h3>ngcat-session Cookie Demo</h3>
+    <p><strong>ngcat-session:</strong> {{ ngcatSessionValue }}</p>
+    <div class="cookie-actions">
+        <button type="button" (click)="setNgcatSession()">Set ngcat-session</button>
+        <button type="button" (click)="readNgcatSession()">Read ngcat-session</button>
+        <button type="button" (click)="deleteNgcatSession()">Delete ngcat-session</button>
+    </div>
+</section>
+
+<section class="cookie-panel">
+    <h3>Node.js Cookie Demo</h3>
+    <p><strong>token (from backend):</strong> {{ serverCookieValue }}</p>
+    <p *ngIf="serverStatus">{{ serverStatus }}</p>
+    <div class="cookie-actions">
+        <button type="button" (click)="setServerCookie()">Set Server Cookie</button>
+        <button type="button" (click)="readServerCookie()">Read Server Cookie</button>
+        <button type="button" (click)="deleteServerCookie()">Delete Server Cookie</button>
+    </div>
+</section>
+
+<div class="table-wrap" *ngIf="users$ | async as users; else loading">
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of users">
+                <td>{{ user.id }}</td>
+                <td>{{ user.name }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.phone }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<ng-template #loading>
+    <p>Loading users...</p>
+</ng-template>
+
+<section class="profile-section" *ngIf="userProfile$ | async as profile">
+    <h3>User Profile</h3>
+    <div class="profile-card">
+        <p><strong>ID:</strong> {{ profile.id }}</p>
+        <p><strong>Name:</strong> {{ profile.name }}</p>
+        <p><strong>Email:</strong> {{ profile.email }}</p>
+    </div>
+</section>

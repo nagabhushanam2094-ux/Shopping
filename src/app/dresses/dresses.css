@@ -1,0 +1,73 @@
+.dresses-page {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.subtitle {
+  color: #5f6c80;
+  margin-bottom: 20px;
+}
+
+.dress-section {
+  margin-bottom: 28px;
+}
+
+.dress-section h3 {
+  margin-bottom: 12px;
+  color: #1f2f47;
+}
+
+.dress-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.dress-card {
+  border: 1px solid #e0e6ef;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.dress-image {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+}
+
+.dress-card h4 {
+  margin: 12px 12px 6px;
+  color: #21344f;
+}
+
+.barcode {
+  margin: 0 12px 6px;
+  color: #5f6c80;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.price {
+  margin: 0 12px 14px;
+  color: #007bff;
+  font-weight: 700;
+}
+
+.add-to-cart {
+  width: calc(100% - 24px);
+  margin: 0 12px 14px;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  background: #007bff;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.add-to-cart:hover {
+  background: #005dc0;
+}

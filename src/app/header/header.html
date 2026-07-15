@@ -1,0 +1,12 @@
+<header>
+  <div class="header-content">
+    <h1>Shopping App</h1>
+    <div class="header-actions">
+      <a class="cart-notification" routerLink="/cart" aria-label="Open cart">
+        <span class="cart-label">Cart</span>
+        <span class="cart-count" *ngIf="(cartItemCount$ | async) as count">{{ count }}</span>
+      </a>
+      <button class="logout-btn" (click)="logout()">Logout</button>
+    </div>
+  </div>
+</header>

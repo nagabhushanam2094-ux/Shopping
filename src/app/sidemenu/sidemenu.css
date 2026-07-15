@@ -1,0 +1,47 @@
+nav {
+  background-color: #f5f5f5;
+  padding: 20px;
+  min-width: 200px;
+  border-right: 1px solid #ddd;
+  overflow-y: auto;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+nav li {
+  margin-bottom: 10px;
+}
+
+nav a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 15px;
+  text-decoration: none;
+  color: #333;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+nav a:hover {
+  background-color: #e0e0e0;
+}
+
+nav a.active {
+  background-color: #007bff;
+  color: white;
+}
+
+.cart-badge {
+  background-color: #dc3545;
+  color: white;
+  border-radius: 12px;
+  padding: 2px 6px;
+  font-size: 12px;
+  font-weight: bold;
+  margin-left: 8px;
+}

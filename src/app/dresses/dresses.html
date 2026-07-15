@@ -1,0 +1,31 @@
+<div class="dresses-page">
+  <h2>Dresses for Men and Women</h2>
+  <p class="subtitle">Explore trending styles curated for both men and women.</p>
+  <p class="subtitle" *ngIf="loadError">{{ loadError }}</p>
+
+  <section class="dress-section">
+    <h3>Men</h3>
+    <div class="dress-grid">
+      <article class="dress-card" *ngFor="let item of menDresses">
+        <img [src]="item.image" [alt]="item.name" class="dress-image" (error)="onImageError($event)" />
+        <h4>{{ item.name }}</h4>
+        <p class="barcode">Barcode: {{ item.barcode }}</p>
+        <p class="price">${{ item.price.toFixed(2) }}</p>
+        <button class="add-to-cart" (click)="addDressToCart(item)">Add to Cart</button>
+      </article>
+    </div>
+  </section>
+
+  <section class="dress-section">
+    <h3>Women</h3>
+    <div class="dress-grid">
+      <article class="dress-card" *ngFor="let item of womenDresses">
+        <img [src]="item.image" [alt]="item.name" class="dress-image" (error)="onImageError($event)" />
+        <h4>{{ item.name }}</h4>
+        <p class="barcode">Barcode: {{ item.barcode }}</p>
+        <p class="price">${{ item.price.toFixed(2) }}</p>
+        <button class="add-to-cart" (click)="addDressToCart(item)">Add to Cart</button>
+      </article>
+    </div>
+  </section>
+</div>

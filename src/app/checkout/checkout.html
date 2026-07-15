@@ -1,0 +1,223 @@
+<div class="checkout-page">
+  <div class="checkout-hero">
+    <div>
+      <p class="eyebrow">Secure checkout</p>
+      <h1>Complete your order with UPI or Card</h1>
+      <p class="subtitle">Review your items, add delivery details, and pay securely in one flow.</p>
+    </div>
+    <button class="back-btn" (click)="goBackToCart()">Back to Cart</button>
+  </div>
+
+  <div class="checkout-layout">
+    <section class="panel form-panel">
+      <h2>Delivery Details</h2>
+      <div class="form-grid">
+        <label>
+          Full Name
+          <input type="text" [(ngModel)]="fullName" placeholder="Your name" />
+        </label>
+        <label>
+          Email
+          <input type="email" [(ngModel)]="email" placeholder="you@example.com" />
+        </label>
+        <label>
+          Phone
+          <input type="tel" [(ngModel)]="phone" placeholder="10-digit phone number" />
+        </label>
+        <label>
+          UPI ID
+          <input type="text" [(ngModel)]="upiId" placeholder="yourname@bank" [disabled]="paymentMethod === 'card'" />
+          <small class="field-note" *ngIf="paymentMethod === 'upi'">Optional. Leave blank to continue with email for order confirmation.</small>
+          <small class="field-note" *ngIf="paymentMethod === 'card'">UPI ID is not needed when paying with card.</small>
+        </label>
+        <label class="full-width">
+          Address
+          <textarea [(ngModel)]="address" (ngModelChange)="scheduleMapUpdate()" rows="3" placeholder="Street, building, locality"></textarea>
+        </label>
+        <label>
+          City
+          <input type="text" [(ngModel)]="city" (ngModelChange)="scheduleMapUpdate()" placeholder="City" list="city-options" />
+        </label>
+        <datalist id="city-options">
+          <option *ngFor="let cityOption of cityOptions" [value]="cityOption"></option>
+        </datalist>
+        <label>
+          State
+          <input type="text" [(ngModel)]="state" (ngModelChange)="scheduleMapUpdate()" placeholder="State" list="state-options" />
+        </label>
+        <datalist id="state-options">
+          <option *ngFor="let stateOption of stateOptions" [value]="stateOption"></option>
+        </datalist>
+        <label>
+          Postal Code
+          <input
+            type="text"
+            [ngModel]="postalCode"
+            (ngModelChange)="onPostalCodeChange($event)"
+            placeholder="6-digit postal code"
+            inputmode="numeric"
+            maxlength="6"
+          />
+        </label>
+      </div>
+
+      <div class="map-section">
+        <h3>Delivery Location</h3>
+        <iframe
+          class="map-container"
+          [src]="mapEmbedUrl"
+          title="Delivery location map"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+        <p *ngIf="mapError" class="map-error">{{ mapError }}</p>
+      </div>
+
+      <button class="chat-toggle" (click)="toggleChat()" aria-label="Toggle chat assistant">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+          <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+        </svg>
+      </button>
+
+      <div class="chatbox" *ngIf="chatOpen" aria-label="Checkout help chatbox">
+        <div class="chatbox-header">
+          <h3>Need Help? Chat Assistant</h3>
+          <button class="chat-close" (click)="toggleChat()" aria-label="Close chat">✕</button>
+        </div>
+
+        <div class="chat-messages">
+          <div
+            *ngFor="let message of chatMessages"
+            class="chat-message"
+            [class.user-message]="message.sender === 'user'"
+            [class.bot-message]="message.sender === 'bot'"
+          >
+            {{ message.text }}
+          </div>
+          <div *ngIf="isChatLoading" class="chat-message bot-message">
+            Typing...
+          </div>
+        </div>
+
+        <div class="quick-prompts">
+          <button type="button" *ngFor="let prompt of quickPrompts" (click)="useQuickPrompt(prompt)" [disabled]="isChatLoading">
+            {{ prompt }}
+          </button>
+        </div>
+
+        <div class="chat-input-row">
+          <input
+            type="text"
+            [(ngModel)]="chatInput"
+            placeholder="Ask about payment, UPI, or email confirmation"
+            (keyup.enter)="sendChatMessage()"
+            [disabled]="isChatLoading"
+          />
+          <button type="button" (click)="sendChatMessage()" [disabled]="isChatLoading">
+            {{ isChatLoading ? 'Sending...' : 'Send' }}
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel summary-panel">
+      <h2>Order Summary</h2>
+      <div class="summary-row">
+        <span>Items</span>
+        <strong>{{ cartItemCount$ | async }}</strong>
+      </div>
+      <div class="summary-row">
+        <span>Total</span>
+        <strong>${{ (cartTotal$ | async)?.toFixed(2) }}</strong>
+      </div>
+
+      <div class="payment-box">
+        <div class="payment-badge">Payment Method</div>
+        <div class="payment-methods" role="radiogroup" aria-label="Payment method">
+          <label class="payment-option">
+            <input type="radio" name="paymentMethod" value="upi" [(ngModel)]="paymentMethod" />
+            <span>UPI</span>
+          </label>
+          <label class="payment-option">
+            <input type="radio" name="paymentMethod" value="card" [(ngModel)]="paymentMethod" />
+            <span>Card</span>
+          </label>
+        </div>
+        <div class="card-fields" *ngIf="paymentMethod === 'card'">
+          <label>
+            Card Number
+            <input type="text" [(ngModel)]="cardNumber" placeholder="1234 5678 9012 3456" inputmode="numeric" />
+          </label>
+          <label>
+            Name on Card
+            <input type="text" [(ngModel)]="cardName" placeholder="Cardholder name" />
+          </label>
+          <div class="card-row">
+            <label>
+              Expiry (MM/YY)
+              <input type="text" [(ngModel)]="cardExpiry" placeholder="MM/YY" maxlength="5" />
+            </label>
+            <label>
+              CVV
+              <input type="password" [(ngModel)]="cardCvv" placeholder="123" maxlength="4" inputmode="numeric" />
+            </label>
+          </div>
+        </div>
+        <p *ngIf="paymentMethod === 'upi'">Pay securely using UPI. If merchant credentials are not configured, the backend returns test mode details.</p>
+        <p *ngIf="paymentMethod === 'card'">Pay securely with your debit or credit card.</p>
+      </div>
+
+      <button class="pay-btn" (click)="payWithPhonePe()" [disabled]="isProcessing">
+        {{ isProcessing ? 'Submitting...' : (paymentMethod === 'card' ? 'Pay with Card' : 'Submit & Pay with UPI') }}
+      </button>
+
+      <p *ngIf="successMessage" class="success-message">{{ successMessage }}</p>
+      <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+      <p *ngIf="testMode && paymentMethod === 'upi'" class="test-mode">{{ testModeMessage }}</p>
+
+      <div class="delivery-tracking-box">
+        <p class="delivery-title">Delivery Tracking</p>
+        <p class="delivery-note">Track live Delhivery status using Transaction ID from email (or order ID).</p>
+        <p class="delivery-note">Status auto-refreshes every 30 seconds while this page stays open.</p>
+
+        <div class="delivery-track-row">
+          <input
+            type="text"
+            [(ngModel)]="deliveryOrderId"
+            placeholder="Enter Transaction ID from email (example: CARD1234567890)"
+          />
+          <button type="button" (click)="fetchDeliveryTracking()" [disabled]="deliveryTrackingLoading">
+            {{ deliveryTrackingLoading ? 'Checking...' : 'Track' }}
+          </button>
+        </div>
+
+        <p *ngIf="deliveryTrackingSuccess" class="delivery-success">{{ deliveryTrackingSuccess }}</p>
+        <p *ngIf="deliveryTrackingError" class="delivery-error">{{ deliveryTrackingError }}</p>
+
+        <div *ngIf="deliveryTrackingData" class="delivery-details">
+          <div class="delivery-row"><span>Partner</span><strong>{{ deliveryTrackingData.partner }}</strong></div>
+          <div class="delivery-row"><span>Status</span><strong>{{ deliveryTrackingData.status }}</strong></div>
+          <div class="delivery-row"><span>Tracking ID</span><strong>{{ deliveryTrackingData.trackingId }}</strong></div>
+          <a *ngIf="deliveryTrackingData.trackingUrl" [href]="deliveryTrackingData.trackingUrl" target="_blank" rel="noopener" class="tracking-link">
+            Open partner tracking page
+          </a>
+
+          <div class="timeline" *ngIf="deliveryTrackingData.timeline.length">
+            <p class="timeline-title">Shipment Timeline</p>
+            <div *ngFor="let step of deliveryTrackingData.timeline" class="timeline-step" [class.done]="step.completed">
+              <span>{{ step.status }}</span>
+              <small>{{ step.timestamp ? (step.timestamp | date:'medium') : 'Pending' }}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="qrCodeUrl && paymentMethod === 'upi'" class="qr-box">
+        <p class="qr-title">Scan to pay (UPI)</p>
+        <img [src]="qrCodeUrl" alt="UPI QR Code" class="qr-image" />
+        <p *ngIf="upiIdUsed" class="qr-upi">UPI ID: {{ upiIdUsed }}</p>
+        <a *ngIf="upiIntentUrl" [href]="upiIntentUrl" class="upi-link">Open UPI App</a>
+      </div>
+    </section>
+  </div>
+</div>
